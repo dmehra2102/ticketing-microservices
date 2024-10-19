@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get('/api/users/currentuser', (req, res) => {
+router.get('/details', (req, res) => {
    res.send('Hi there!');
 });
 

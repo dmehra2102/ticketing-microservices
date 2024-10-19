@@ -6,7 +6,7 @@ import { DatabaseConnectionError } from '../errors/database-connection-error';
 const router = express.Router();
 
 router.post(
-   '/api/users/signup',
+   '/',
    [
       body('email').isEmail().withMessage('Email must be valid'),
       body('password')
