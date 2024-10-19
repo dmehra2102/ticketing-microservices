@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import { User } from '../models/user.model';
 import express, { Request, Response } from 'express';
 import { UserAttrs } from '../interfaces/user.interface';
@@ -26,9 +27,23 @@ router.post(
       const existingUser = await User.findOne({ email });
 
       if (existingUser) throw new BadRequestError('Email in use');
-      
+
       const user = User.build({ email, password });
       await user.save();
+
+      // Generate JWT
+      const userJwt = jwt.sign(
+         {
+            id: user._id,
+            email: user.email,
+         },
+         'ourSecretIsSecret'
+      );
+
+      // Store it on session object
+      req.session = { 
+         jwt: userJwt,
+      };
 
       res.send(user);
    }

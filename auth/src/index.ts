@@ -8,11 +8,17 @@ import { NotFoundError } from './errors/not-found-error';
 import { currentUserRouter } from './routes/current-user';
 import { errorHandler } from './middlewares/error-handler.middleware';
 import mongoose from 'mongoose';
+import cookieSession from 'cookie-session';
 
 const app = express();
 
 // Middleware
+app.set("trust proxy", true);
 app.use(json());
+app.use(cookieSession({
+   signed : false,
+   secure : true 
+}))
 
 // Route handlers
 app.use('/api/user/signin', signinRouter);
