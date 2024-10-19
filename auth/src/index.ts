@@ -15,10 +15,10 @@ const app = express();
 app.use(json());
 
 // Route handlers
-app.use('/api/signin', signinRouter);
-app.use('/api/signup', signupRouter);
-app.use('/api/signout', signoutRouter);
-app.use('/api/current-user', currentUserRouter);
+app.use('/api/user/signin', signinRouter);
+app.use('/api/user/signup', signupRouter);
+app.use('/api/user/signout', signoutRouter);
+app.use('/api/user/current-user', currentUserRouter);
 
 // Handle undefined routes
 app.all('*', async (req: Request, res: Response) => {
