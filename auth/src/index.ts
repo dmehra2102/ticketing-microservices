@@ -1,3 +1,4 @@
+import 'express-async-errors'; // This package allows us to throw errors from async functions
 import express, { Request, Response, NextFunction } from 'express';
 import { json } from 'body-parser'; // No need for bodyParser, it's part of express
 import { signinRouter } from './routes/signin';
@@ -19,7 +20,7 @@ app.use('/api/signout', signoutRouter);
 app.use('/api/current-user', currentUserRouter);
 
 // Handle undefined routes
-app.all('*', (req: Request, res: Response) => {
+app.all('*', async (req: Request, res: Response) => {
    throw new NotFoundError(`Route ${req.originalUrl} not found`);
 });
 
@@ -27,7 +28,6 @@ app.all('*', (req: Request, res: Response) => {
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
    errorHandler(err, req, res, next);
 });
-
 
 app.listen(3000, () => {
    console.log(`Server running on port 3000`);
