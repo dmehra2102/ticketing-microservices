@@ -15,7 +15,8 @@ export class Password {
       storedPassword: string,
       password: string
    ): Promise<boolean> {
-      const hashedPassword = await this.hashPassword(password);
-      return storedPassword === hashedPassword;
+      const [existingHashedPass, salt] = storedPassword.split('.');
+      const givenHashedPass = (await scryptAsync(password, salt, 64)) as Buffer;
+      return existingHashedPass === givenHashedPass.toString('hex');
    }
 }
