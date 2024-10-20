@@ -1,29 +1,17 @@
 'use client';
 
-import axios from 'axios';
 import React, { useState } from 'react';
+import useRequest from '@/hooks/use-request';
 
 const SignUp = () => {
+   const {errors,makeRequest} = useRequest();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState([]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setErrors([]); // Clear errors before submitting
-
-        try {
-            await axios.post("/api/users/signup", { email, password });
-            // Reset form on successful signup
-            setEmail('');
-            setPassword('');
-        } catch (error) {
-            if (error.response && error.response.data.errors) {
-                setErrors(error.response.data.errors);
-            } else {
-                setErrors([{ message: 'Something went wrong. Please try again.' }]);
-            }
-        }
+        
+        makeRequest("/api/user/signup","post",{ email, password})
     };
 
     // Helper to display specific field error
