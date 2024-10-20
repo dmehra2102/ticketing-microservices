@@ -1,7 +1,13 @@
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import request from 'supertest';
 import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import { app } from '../app';
 
 let mongod: MongoMemoryServer;
+
+declare global {
+   var signin: () => Promise<string[]>;
+}
 
 beforeAll(async () => {
    process.env.JWT_KEY = 'jwtSecreyKey';
@@ -27,3 +33,20 @@ beforeEach(async () => {
       }
    }
 });
+
+global.signin = async () => {
+   const email = 'test@test.com';
+   const password = 'testPassword';
+
+   const response = await request(app)
+      .post('/api/user/signup')
+      .send({ email, password })
+      .expect(201);
+
+   const cookie = response.get('Set-Cookie');
+
+   if (!cookie) {
+      throw new Error('Failed to get cookie from response');
+   }
+   return cookie;
+};
