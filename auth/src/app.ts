@@ -16,7 +16,6 @@ class App {
       this.app = express();
       this.port = 3000;
 
-      this.connectToDatabase();
       this.initializeMiddleware();
       this.initializeRoutes();
       this.initializeErrorHandling();
@@ -60,14 +59,15 @@ class App {
       if (!process.env.JWT_KEY) throw new Error('JWT_KEY must be defined');
       try {
          await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
-         console.log('Connected to MongoDB');
+         console.info('Connected to MongoDB auth-mongo-srv instance');
       } catch (err) {
          console.error(err);
       }
    }
 
    public listen() {
-      this.app.listen(this.port, () => {
+      this.app.listen(this.port, async () => {
+         await this.connectToDatabase();
          console.info(`=================================`);
          console.info(
             `🚀 🚀 Knock knock, who's there? It's your http server, listening on port ${this.port}! 🚀 🚀`
