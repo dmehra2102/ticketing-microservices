@@ -2,11 +2,13 @@
 
 import React, { useState } from 'react';
 import useRequest from '@/hooks/use-request';
+import { useRouter } from 'next/navigation';
 
 const SignUp = () => {
-   const {errors,makeRequest} = useRequest();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+   const router = useRouter();
+   const [email, setEmail] = useState('');
+   const [password, setPassword] = useState('');
+   const {errors,makeRequest} = useRequest({ onSuccess : (res)=> { router.push("/setting")}});
 
     const handleSubmit = async (event) => {
         event.preventDefault();
