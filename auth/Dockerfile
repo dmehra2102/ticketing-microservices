@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package.json .
 
-RUN npm install --verbose
+RUN npm install --verbose --omit=dev
 
 COPY . .
 
