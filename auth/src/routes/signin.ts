@@ -4,8 +4,10 @@ import { User } from '../models/user.model';
 import { Password } from '../services/password';
 import express, { Request, Response } from 'express';
 import { UserAttrs } from '../interfaces/user.interface';
-import { BadRequestError } from '../errors/bad-request-error';
-import { validateRequestMiddleware } from '../middlewares/validate-request.middleware';
+import {
+   BadRequestError,
+   validateRequestMiddleware,
+} from '@dmehra2102-microservices-/common';
 
 const router = express.Router();
 

@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { currentUserMiddleware } from '../middlewares/current-user.middleware';
+import { currentUserMiddleware } from '@dmehra2102-microservices-/common';
 
 const router = express.Router();
 

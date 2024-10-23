@@ -6,9 +6,8 @@ import express, { NextFunction, Request, Response } from 'express';
 import { signinRouter } from './routes/signin';
 import { signupRouter } from './routes/signup';
 import { signoutRouter } from './routes/signout';
-import { NotFoundError } from './errors/not-found-error';
+import { NotFoundError, errorHandler } from '@dmehra2102-microservices-/common';
 import { currentUserRouter } from './routes/current-user';
-import { errorHandler } from './middlewares/error-handler.middleware';
 
 const app = express();
 
