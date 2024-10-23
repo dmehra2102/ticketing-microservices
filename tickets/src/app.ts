@@ -3,10 +3,6 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import express, { NextFunction, Request, Response } from 'express';
 
-import { signinRouter } from './routes/signin';
-import { signupRouter } from './routes/signup';
-import { signoutRouter } from './routes/signout';
-import { currentUserRouter } from './routes/current-user';
 import { NotFoundError, errorHandler } from '@dmehra2102-microservices-/common';
 
 const app = express();
@@ -20,10 +16,6 @@ app.use(
    })
 );
 
-app.use('/api/user/signin', signinRouter);
-app.use('/api/user/signup', signupRouter);
-app.use('/api/user/signout', signoutRouter);
-app.use('/api/user/current-user', currentUserRouter);
 
 app.all('*', async (req, res) => {
    throw new NotFoundError(`Route ${req.originalUrl} not found`);
