@@ -1,8 +1,8 @@
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
+import { createTicketRouter } from './routes/createTicket';
 import express, { NextFunction, Request, Response } from 'express';
-
 import { NotFoundError, errorHandler } from '@dmehra2102-microservices-/common';
 
 const app = express();
@@ -16,6 +16,7 @@ app.use(
    })
 );
 
+app.use('/api/tickets', createTicketRouter);
 
 app.all('*', async (req, res) => {
    throw new NotFoundError(`Route ${req.originalUrl} not found`);

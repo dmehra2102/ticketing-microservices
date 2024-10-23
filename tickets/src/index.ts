@@ -10,7 +10,7 @@ const start = async () => {
    try {
       await mongoose.connect('mongodb://tickets-mongo-srv:27017/tickets');
 
-      console.log('Connected to MongoDb');
+      console.log('Connected to Ticket MongoDb');
    } catch (err) {
       console.error(err);
    }
