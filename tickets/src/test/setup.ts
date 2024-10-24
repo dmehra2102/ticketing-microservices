@@ -36,7 +36,7 @@ beforeEach(async () => {
 global.signin = () => {
    const payload = {
       email: 'test@test.com',
-      password: 'testPassword',
+      id: new mongoose.Types.ObjectId().toHexString(),
    };
 
    const token = jwt.sign(payload, process.env.JWT_KEY!);

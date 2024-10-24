@@ -10,7 +10,7 @@ import { Ticket } from '../models/ticket';
 const router = express.Router();
 
 router.post(
-   '/create',
+   '/',
    currentUserMiddleware,
    requireAuthMiddleware,
    [
