@@ -1,12 +1,12 @@
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-import { getTicketRouter } from './routes/getTicket';
-import { createTicketRouter } from './routes/createTicket';
 import express, { NextFunction, Request, Response } from 'express';
 import { NotFoundError, errorHandler } from '@dmehra2102-microservices-/common';
-import { getAllTicketsRouter } from './routes/getTickets';
-import { updateTicketRoute } from './routes/updateTicket';
+import { getOrdersRouter } from './routes/getOrders';
+import { createOrderRouter } from './routes/createOrder';
+import { deleteOrderRouter } from './routes/deleteOrder';
+import { getOrderRouter } from './routes/getOrder';
 
 const app = express();
 
@@ -19,10 +19,10 @@ app.use(
    })
 );
 
-app.use('/api/ticket/create', createTicketRouter);
-app.use('/api/ticket/all', getAllTicketsRouter);
-app.use('/api/ticket/update', updateTicketRoute);
-app.use('/api/ticket', getTicketRouter);
+app.use('/api/order/all', getOrdersRouter);
+app.use('/api/order/create', createOrderRouter);
+app.use('/api/order/delete', deleteOrderRouter);
+app.use('/api/order', getOrderRouter);
 
 app.all('*', async (req, res) => {
    throw new NotFoundError(`Route ${req.originalUrl} not found`);
