@@ -6,6 +6,8 @@ import {
 } from '@dmehra2102-microservices-/common';
 import express, { NextFunction, Request, Response } from 'express';
 import { Order } from '../models/order.model';
+import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher';
+import { natsWrapper } from '../nats-wrappper';
 
 const router = express.Router();
 
@@ -20,6 +22,12 @@ router.delete(
 
       order.status = OrderStatus.CANCELLED;
       await order.save();
+
+      new OrderCancelledPublisher(natsWrapper.client).publish({
+         id: order.id,
+         userId: order.userId,
+         ticket: { id: order.ticket.id },
+      });
 
       res.status(204).send(order);
    }
