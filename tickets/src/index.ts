@@ -4,12 +4,16 @@ import { app } from './app';
 import { natsWrapper } from './nats-wrappper';
 
 const start = async () => {
-   if (!process.env.JWT_KEY) {
-      throw new Error('JWT_KEY must be defined');
+   if (!process.env.JWT_KEY || !process.env.NATS_CLIENT_ID) {
+      throw new Error('JWT_KEY and NATS_CLIENT_ID must be defined');
    }
 
    try {
-      await natsWrapper.connect('ticketing', 'absdefg', 'http://nats-src:4222');
+      await natsWrapper.connect(
+         'ticketing',
+         process.env.NATS_CLIENT_ID,
+         'http://nats-src:4222'
+      );
       natsWrapper.client.on('close', () => {
          console.log('NATS connnection closed!');
          process.exit();

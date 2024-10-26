@@ -13,6 +13,10 @@ spec:
         app: tickets
     spec:
       containers:
+        - name: NATS_CLIENT_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metdata.name
         - name: tickets
           image: dmehra2102/tickets-service-image
           env:
