@@ -14,7 +14,6 @@ const ticketSchema = new Schema<TicketDocument, TicketModel>(
    },
    {
       timestamps: true,
-      versionKey: false,
       toJSON: {
          transform(ret, doc) {
             ret.id = ret._id;

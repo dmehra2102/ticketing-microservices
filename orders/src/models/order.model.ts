@@ -24,7 +24,6 @@ const orderSchema = new Schema<OrderDocument, OrderModelInterafce>(
    },
    {
       timestamps: true,
-      versionKey: false,
       toJSON: {
          transform(doc, ret) {
             ret.id = ret._id;
