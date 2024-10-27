@@ -10,7 +10,7 @@ import { OrderStatus } from '@dmehra2102-microservices-/common';
 const ticketSchema = new Schema<TicketDocument, TicketModel>(
    {
       price: { type: Number, required: true, min: 0 },
-      title: { Type: String, required: true },
+      title: { type: String, required: true },
    },
    {
       timestamps: true,
@@ -25,7 +25,7 @@ const ticketSchema = new Schema<TicketDocument, TicketModel>(
 );
 
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
-   return new Ticket(attrs);
+   return new Ticket({ _id: attrs.id, title: attrs.title, price: attrs.price });
 };
 
 ticketSchema.methods.isReserved = async function () {

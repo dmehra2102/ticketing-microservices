@@ -36,4 +36,4 @@ ticketSchema.statics.build = (attrs: TicketAttrs) => {
    return new Ticket(attrs);
 };
 
-export const Ticket = model<TicketDoc, TicketModel>('ticket', ticketSchema);
+export const Ticket = model<TicketDoc, TicketModel>('Ticket', ticketSchema);

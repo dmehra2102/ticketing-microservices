@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 
 import { app } from './app';
 import { natsWrapper } from './nats-wrappper';
+import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
+import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener';
 
 const start = async () => {
    if (!process.env.JWT_KEY || !process.env.NATS_CLIENT_ID) {
@@ -12,7 +14,7 @@ const start = async () => {
       await natsWrapper.connect(
          'ticketing',
          process.env.NATS_CLIENT_ID,
-         'http://nats-src:4222'
+         'http://nats-srv:4222'
       );
       natsWrapper.client.on('close', () => {
          console.log('NATS connnection closed!');
@@ -22,8 +24,11 @@ const start = async () => {
       process.on('SIGINT', () => natsWrapper.client.close());
       process.on('SIGTERM', () => natsWrapper.client.close());
 
-      await mongoose.connect('mongodb://orders-mongo-srv:27017/orders');
+      // Initializing Listener
+      new TicketCreatedListener(natsWrapper.client).listen();
+      new TicketUpdatedListener(natsWrapper.client).listen();
 
+      await mongoose.connect('mongodb://orders-mongo-srv:27017/orders');
       console.log('Connected to Ticket MongoDb');
    } catch (err) {
       console.error(err);

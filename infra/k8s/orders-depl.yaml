@@ -13,13 +13,13 @@ spec:
         app: orders
     spec:
       containers:
-        - name: NATS_CLIENT_ID
-          valueFrom:
-            fieldRef:
-              fieldPath: metdata.name
         - name: orders
           image: dmehra2102/orders-service-image
           env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
