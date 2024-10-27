@@ -14,6 +14,7 @@ export interface OrderDocument extends mongoose.Document {
    status: OrderStatus;
    expiresAt: Date;
    ticket: TicketDocument;
+   version: number;
    updatedAt: string;
    createdAt: string;
 }

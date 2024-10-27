@@ -3,7 +3,7 @@ import { OrderModelInterafce } from '../interfaces/order.interface';
 import { OrderAttrs, OrderDocument } from './../interfaces/order.interface';
 import { OrderStatus } from '@dmehra2102-microservices-/common';
 
-const orderSchema = new Schema<OrderDocument, OrderModelInterafce>(
+const orderSchema = new Schema(
    {
       userId: {
          type: String,

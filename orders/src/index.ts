@@ -29,7 +29,7 @@ const start = async () => {
       new TicketUpdatedListener(natsWrapper.client).listen();
 
       await mongoose.connect('mongodb://orders-mongo-srv:27017/orders');
-      console.log('Connected to Ticket MongoDb');
+      console.log('Connected to Orders MongoDb');
    } catch (err) {
       console.error(err);
    }
