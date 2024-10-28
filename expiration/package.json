@@ -19,7 +19,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@dmehra2102-microservices-/common": "^1.0.14",
+    "@dmehra2102-microservices-/common": "^1.0.15",
     "@types/bull": "^3.15.9",
     "bull": "^4.16.3",
     "node-nats-streaming": "^0.3.2",
