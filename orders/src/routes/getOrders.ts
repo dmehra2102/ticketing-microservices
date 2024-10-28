@@ -1,4 +1,7 @@
-import { requireAuthMiddleware } from '@dmehra2102-microservices-/common';
+import {
+   currentUserMiddleware,
+   requireAuthMiddleware,
+} from '@dmehra2102-microservices-/common';
 import express, { NextFunction, Request, Response } from 'express';
 import { Order } from '../models/order.model';
 
@@ -6,6 +9,7 @@ const router = express.Router();
 
 router.get(
    '/',
+   currentUserMiddleware,
    requireAuthMiddleware,
    async (req: Request, res: Response, next: NextFunction) => {
       const orders = await Order.find({

@@ -1,4 +1,5 @@
 import {
+   currentUserMiddleware,
    NotAuthorizedError,
    NotFoundError,
    OrderStatus,
@@ -13,6 +14,7 @@ const router = express.Router();
 
 router.delete(
    '/:orderId',
+   currentUserMiddleware,
    requireAuthMiddleware,
    async (req: Request, res: Response, next: NextFunction) => {
       const order = await Order.findById(req.params.orderId).populate('ticket');

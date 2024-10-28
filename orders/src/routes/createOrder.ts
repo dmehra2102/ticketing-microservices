@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 import express, { NextFunction, Request, Response } from 'express';
 import {
    BadRequestError,
+   currentUserMiddleware,
    NotFoundError,
    OrderStatus,
    requireAuthMiddleware,
@@ -19,6 +20,7 @@ const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 
 router.post(
    '/',
+   currentUserMiddleware,
    requireAuthMiddleware,
    [
       body('ticketId')

@@ -1,4 +1,5 @@
 import {
+   currentUserMiddleware,
    NotAuthorizedError,
    NotFoundError,
    requireAuthMiddleware,
@@ -10,6 +11,7 @@ const router = express.Router();
 
 router.get(
    '/:orderId',
+   currentUserMiddleware,
    requireAuthMiddleware,
    async (req: Request, res: Response, next: NextFunction) => {
       const order = await Order.findById(req.params.orderId).populate('ticket');
