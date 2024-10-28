@@ -39,3 +39,11 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: dmehra2102/expiration-service-image
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
