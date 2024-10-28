@@ -13,6 +13,7 @@ interface TicketDoc extends mongoose.Document {
    version: number;
    updatedAt: string;
    createdAt: string;
+   orderId?: string;
 }
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
