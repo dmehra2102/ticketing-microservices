@@ -1,4 +1,5 @@
 import {
+   BadRequestError,
    currentUserMiddleware,
    NotAuthorizedError,
    NotFoundError,
@@ -33,6 +34,10 @@ router.put(
 
       if (ticket.userId !== req.currentUser!.id) {
          throw new NotAuthorizedError();
+      }
+
+      if (ticket.orderId) {
+         throw new BadRequestError('Cannot edit a resreved ticket.');
       }
 
       ticket.set({
