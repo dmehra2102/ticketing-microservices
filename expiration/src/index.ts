@@ -1,15 +1,21 @@
 import { natsWrapper } from './nats-wrappper';
 
 const start = async () => {
-   if (!process.env.NATS_CLIENT_ID) {
-      throw new Error('NATS_CLIENT_ID must be defined');
+   if (
+      !process.env.NATS_CLUSTER_ID ||
+      !process.env.NATS_URL ||
+      !process.env.NATS_CLIENT_ID
+   ) {
+      throw new Error(
+         'NATS_CLIENT_ID and NATS_CLUSTER_ID and NATS_URL must be defined'
+      );
    }
 
    try {
       await natsWrapper.connect(
-         'ticketing',
+         process.env.NATS_CLUSTER_ID,
          process.env.NATS_CLIENT_ID,
-         'http://nats-srv:4222'
+         process.env.NATS_URL
       );
       natsWrapper.client.on('close', () => {
          console.log('NATS connnection closed!');
