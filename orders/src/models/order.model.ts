@@ -2,6 +2,7 @@ import mongoose, { model, Schema } from 'mongoose';
 import { OrderModelInterafce } from '../interfaces/order.interface';
 import { OrderAttrs, OrderDocument } from './../interfaces/order.interface';
 import { OrderStatus } from '@dmehra2102-microservices-/common';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 const orderSchema = new Schema(
    {
@@ -32,6 +33,9 @@ const orderSchema = new Schema(
       },
    }
 );
+
+orderSchema.set('versionKey', 'version');
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
    return new Order(attrs);
