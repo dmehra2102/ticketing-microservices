@@ -3,6 +3,7 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import express, { NextFunction, Request, Response } from 'express';
 import { NotFoundError, errorHandler } from '@dmehra2102-microservices-/common';
+import { createPaymentRoute } from './routes/createPayment';
 
 const app = express();
 
@@ -14,6 +15,8 @@ app.use(
       secure: process.env.NODE_ENV !== 'test',
    })
 );
+
+app.use('/api/payment/create', createPaymentRoute);
 
 app.all('*', async (req, res) => {
    throw new NotFoundError(`Route ${req.originalUrl} not found`);
