@@ -8,10 +8,12 @@ import {
    validateRequestMiddleware,
 } from '@dmehra2102-microservices-/common';
 import { body } from 'express-validator';
-import express, { Request, Response } from 'express';
-import { Order } from '../models/order.model';
 import { stripe } from '../stripe';
+import { Order } from '../models/order.model';
+import { natsWrapper } from '../nats-wrappper';
 import { Payment } from '../models/payment.model';
+import express, { Request, Response } from 'express';
+import { PaymentCreatedPublisher } from '../events/publisher/payment-created-publisher';
 
 const router = express.Router();
 
@@ -43,7 +45,13 @@ router.post(
       });
       await payment.save();
 
-      res.status(201).send({ success: true });
+      await new PaymentCreatedPublisher(natsWrapper.client).publish({
+         id: payment.id,
+         orderId: payment.orderId,
+         stripeId: payment.stripeId,
+      });
+
+      res.status(201).send({ success: true, id: payment.id });
    }
 );
 
