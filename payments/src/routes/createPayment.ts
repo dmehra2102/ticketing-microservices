@@ -7,8 +7,8 @@ import {
    requireAuthMiddleware,
    validateRequestMiddleware,
 } from '@dmehra2102-microservices-/common';
-import { body } from 'express-validator';
 import { stripe } from '../stripe';
+import { body } from 'express-validator';
 import { Order } from '../models/order.model';
 import { natsWrapper } from '../nats-wrappper';
 import { Payment } from '../models/payment.model';
